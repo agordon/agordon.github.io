@@ -35,8 +35,9 @@ The official support is currently for Ubuntu 14.04 LTS, and requires several pat
 Install Debian 7.4 "Wheezy". Instructions are beyond the scope of this document,
 but are easy to find. Start here: <https://www.debian.org/distrib/> .
 
-**NOTE FOR AMAZON USERS:** If you want to experiment with this tutorial on an Amazon instance
-(which is easy and recommened), there is **one critical** configuration item to perform:
+If you want to experiment with this tutorial on "the cloud", note the followings:
+
+### Amazon Cloud
 
 - Start with a Stock Debian 7.4 Image, listed here: <https://wiki.debian.org/Cloud/AmazonEC2Image/Wheezy> (e.g. for
 US-East-1, 64bit, Para-Virtualized, use `ami-b7c8d5de`).
@@ -54,6 +55,23 @@ and the Amazon instance WILL NOT REBOOT properly.
 
 - For the gory details, read this: <http://docs.aws.amazon.com/AWSEC2/latest/UserGuide/UserProvidedKernels.html>
 
+### Digital Ocean
+
+- DigitalOcean's stock Debian 7 image is perfect for this tutorial.
+- The Droplet boots with Debian's linx kernel version 3.2.
+- DigitalOcean Droplets' kernels are controlled by DigitalOcean - meaning just installing a
+new kernel and rebooting will not suffice.
+- After upgrading the kernel (as described below in step #2) - you **must** contact
+DigitalOcean's support team (by opening a ticket), and ask them to use the newly installed kernel file.
+- DigitalOcean's support team is very fast and efficient (my personal anecdotal experience) - it usually takes them less than 3 minutes to respond, and upgrading + rebooting took another minute.
+- When opening a support request ticket, tell them the following:
+
+        I would like to upgrade a kernel on my droplet [DROPLET NAME/IP].
+        The new kernel is a standard image from Debian-Backports,
+        named '3.12-0.bpo.1-amd64', and is installed in '/lib/modules'.
+
+- They will powerdown the droplet, setup the new kernel, and reboot it for you.
+
 
 ## Step 2 - Upgrade to kernel 3.12 with Debian Backports
 
@@ -69,9 +87,9 @@ sudo apt-get upgrade -y
 sudo apt-get -t wheezy-backports -y install linux-image-3.12-0.bpo.1-amd64
 ```
 
-When done, reboot the machine with `sudo reboot`.
-
 This is a good place to remind you - **never** perform these experiments on production systems, or even on partially important machine. If something went wrong and the machine doesn't reboot, it's easier to just kill it and start fresh - only if it's a test machine.
+
+Before rebooting, ensure the machine is properly configured to use the new kernel. If using a local/physical machine, update the bootloader (e.g. 'grub'). If using a virtual machine on 'the cloud', see notes in step #1 above. When ready, reboot the machine.
 
 ## Step 3 - Verify User Namespace support
 
