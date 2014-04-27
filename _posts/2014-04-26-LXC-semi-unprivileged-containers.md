@@ -81,7 +81,8 @@ you'll need at least version 3.8. Version 3.12 is provided with [Debian Backport
 Once you booted and accessed the new Debian installation, run the following commands. These would add Debian Backports mirror as a source for packages, and install the new Kernel, including add the required setup (e.g. updating the Grub Menu):
 
 ```sh
-echo "deb http://mirror.us.leaseweb.net/debian/ wheezy-backports main" | sudo tee /etc/apt/sources.list.d/backports.list
+echo "deb http://mirror.us.leaseweb.net/debian/ wheezy-backports main" | \
+    sudo tee /etc/apt/sources.list.d/backports.list
 sudo apt-get update
 sudo apt-get upgrade -y
 sudo apt-get -t wheezy-backports -y install linux-image-3.12-0.bpo.1-amd64
@@ -182,14 +183,14 @@ is run by the root user (which is the root on both the host and the container/gu
 
 ```sh
 # (Run On the host - numeric values will differ)
-$ ps axu -H | grep -B 6 sleep
-root     20263  0.0  0.0  37632  1748 pts/0    S+   02:22   0:00           sudo lxc-start --name test1
-root     20264  0.0  0.0  25372  1288 pts/0    S+   02:22   0:00             lxc-start --name test1
-root     20266  0.0  0.0   2312   460 ?        Ss   02:22   0:00               init
-root     20270  0.0  0.0   2312   264 ?        Ss   02:22   0:00                 /bin/syslogd
-root     20275  0.0  0.0   2316   256 pts/1    Ss+  02:22   0:00                 /bin/getty -L tty1 115200 vt100
-root     20276  0.0  0.0   2316   508 pts/2    Ss   02:22   0:00                 /bin/sh
-root     20300  0.0  0.0   2312   256 pts/2    S+   02:24   0:00                   sleep 60
+$ ps -H axo user,pid,comm | grep -B 6 sleep
+root     20263   sudo lxc-start --name test1
+root     20264     lxc-start --name test1
+root     20266       init
+root     20270         /bin/syslogd
+root     20275         /bin/getty -L tty1 115200 vt100
+root     20276         /bin/sh
+root     20300           sleep 60
 ```
 
 Notice how all the processes (`lxc-start` on the host, and `syslogd`, `getty`, `sh`, and `sleep` on the guest) are all
@@ -239,7 +240,8 @@ On the host machine, add the following configuration items to the `config` file.
 ```
 # The file is /usr/local/var/lib/lxc/test1/config
 
-# In the BusyBox template, the following line is uncommented, COMMENT it (to disable it).
+# In the BusyBox template, the following line is uncommented,
+# COMMENT it (to disable it).
 # lxc.pts = 1
 
 lxc.kmsg = 0
@@ -268,14 +270,14 @@ uid=0(root) gid=0(root)
 On the host, examine the user runnning the `sleep` command:
 
 ```sh
-$ ps axu -H | grep -B 7 sleep
-admin    20281  0.0  0.0  19444  2192 pts/3    Ss   02:23   0:00         -bash
-root     20374  0.0  0.0  37632  1748 pts/3    S+   02:36   0:00           sudo lxc-start --name test1
-root     20375  0.0  0.0  25372  1284 pts/3    S+   02:36   0:00             lxc-start --name test1
-lxc_root 20377  0.0  0.0   2312   456 ?        Ss   02:36   0:00               init
-lxc_root 20384  0.0  0.0   2316   256 pts/1    Ss+  02:36   0:00                 /bin/getty -L tty1 115200 vt100
-lxc_root 20385  0.0  0.0   2316   500 pts/2    Ss   02:36   0:00                 /bin/sh
-lxc_root 20391  0.0  0.0   2312   256 pts/2    S+   02:36   0:00                   sleep 88
+$ ps -H axo user,pid,comm | grep -B 7 sleep
+admin    20281  bash
+root     20374   sudo lxc-start --name test1
+root     20375     lxc-start --name test1
+lxc_root 20377       init
+lxc_root 20384         /bin/getty -L tty1 115200 vt100
+lxc_root 20385         /bin/sh
+lxc_root 20391           sleep 88
 ```
 
 The real user on the host is `lxc_root`, and it is a non-root user.
@@ -301,15 +303,15 @@ uid=1000(user) gid=1000(user) groups=1000(user)
 Back on the host, examine the user running the `sleep` command:
 
 ```sh
-$ ps axu -H | grep -B 7 sleep
-admin    20281  0.0  0.0  19444  2192 pts/3    Ss   02:23   0:00         -bash
-root     20374  0.0  0.0  37632  1748 pts/3    S+   02:36   0:00           sudo lxc-start --name test1
-root     20375  0.0  0.0  25372  1284 pts/3    S+   02:36   0:00             lxc-start --name test1
-lxc_root 20377  0.0  0.0   2312   456 ?        Ss   02:36   0:00               init
-lxc_root 20384  0.0  0.0   2316   256 pts/1    Ss+  02:36   0:00                 /bin/getty -L tty1 115200 vt100
-lxc_root 20385  0.0  0.0   2316   580 pts/2    Ss   02:36   0:00                 /bin/sh
-lxc_user 20422  0.0  0.0   2316   504 pts/2    S    02:41   0:00                   -sh
-lxc_user 20424  0.0  0.0   2312   256 pts/2    S+   02:41   0:00                     sleep 99
+$ ps -H axo user,pid,comm | grep -B 7 sleep
+admin    20281  bash
+root     20374   sudo lxc-start --name test1
+root     20375     lxc-start --name test1
+lxc_root 20377       init
+lxc_root 20384         /bin/getty -L tty1 115200 vt100
+lxc_root 20385         /bin/sh
+lxc_user 20422           -sh
+lxc_user 20424             sleep 99
 ```
 
 ## Further Information
