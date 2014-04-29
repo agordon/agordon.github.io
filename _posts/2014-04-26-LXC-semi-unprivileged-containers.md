@@ -168,7 +168,7 @@ setting root password to "root"
 Password for 'root' changed
 ```
 
-Start the container, and run a simple command (`sleep 60`). Ignore the `udhcpc` error - The BusyBox template starts dhcp by default, but does not have any network configured:
+Start the container, and run a simple command `sleep 60` (Ignore the `udhcpc` error - The BusyBox template starts dhcp by default, but does not have any network configured. To supress this warning, comment out the `/bin/udhcpc` line in the container's `./rootfs/etc/init.d/rcS` file):
 
 ```sh
 $ sudo lxc-start --name test1
@@ -211,6 +211,9 @@ Terminated
 Sent SIGKILL to all processes
 Requesting system halt
 ```
+
+Depending on your system's configuration, shutting down the container might take
+few seconds, due to Busybox's handling of the shutdown procedure.
 
 If all the above steps worked as expected, Linux Containers (with the default privileged containers) are properly installed.
 
@@ -324,3 +327,6 @@ lxc_user 20424             sleep 99
     - <http://www.slideshare.net/jpetazzo/linux-containers-lxc-docker-and-security>
     - <http://blog.docker.io/2013/08/containers-docker-how-secure-are-they/>
 
+## Updates & Corrections
+
+2014-04-29: Updated dhcp/shutdown information based on [Rami Rosen's comments](https://lists.linuxcontainers.org/pipermail/lxc-users/2014-April/006640.html)
