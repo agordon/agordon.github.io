@@ -22,7 +22,7 @@ This tutorial uses Debian 7.4 Stable, but any reasonable Linux distribution with
 
 ## Background
 
-Linux Containers are the new black in virtualization,
+Linux Containers are the latest trend in virtualization,
 But security concerns still hinder adoption.
 
 A recently added feature called 'Unprivileged Containers' enables running a container
@@ -138,6 +138,7 @@ cd lxc-1.0.3
 make -j
 sudo make install
 cd
+sudo ldconfig
 ```
 
 Install a *static* version of busybox, which we'll use for the container's demonstration:
@@ -148,7 +149,7 @@ tar -xf busybox-1.22.1.tar.bz2
 cd busybox-1.22.1
 # Default Busybox configration is fine for this demo
 make defconfig
-# Exacpt one item: make it a static executable
+# Except one item: make it a static executable
 sed -i '/CONFIG_STATIC/s/.*/CONFIG_STATIC=y/' .config
 make -j
 sudo cp busybox /usr/local/bin/busybox
@@ -234,8 +235,12 @@ For a production machine, further consideration must be made.
 ```sh
 # The exact PATH depents on the name of the LXC (test1 in this tutorial)
 $ cd /usr/local/var/lib/lxc/test1/
+# These preparations are required because the 'root' inside
+# the container isn't the host's root, and can't perform these
 $ sudo mkdir ./rootfs/lxc_putold
 $ sudo chown -R lxc_root:lxc_root ./rootfs/etc
+$ sudo mkdir ./rootfs/home/user
+$ sudo chown -R lxc_user:lxc_user ./rootfs/home/user
 ```
 
 On the host machine, add the following configuration items to the `config` file.
@@ -319,7 +324,7 @@ lxc_user 20424             sleep 99
 
 ## Further Information
 
-- Linux Containers Web Size: <https://linuxcontainers.org/news/>
+- Linux Containers Web Site: <https://linuxcontainers.org/news/>
 - GitHub Repository: <https://github.com/lxc/lxc/>
 - Linux Containers tutorials (10 parts series): <https://www.stgraber.org/2013/12/20/lxc-1-0-blog-post-series/>
     - Part #7: Unprivileged Containers: <https://www.stgraber.org/2014/01/17/lxc-1-0-unprivileged-containers/>
@@ -330,3 +335,5 @@ lxc_user 20424             sleep 99
 ## Updates & Corrections
 
 2014-04-29: Updated dhcp/shutdown information based on [Rami Rosen's comments](https://lists.linuxcontainers.org/pipermail/lxc-users/2014-April/006640.html)
+
+2014-05-05: Typos reported by Rami Rosen, and few improvements to shell commands.
