@@ -1,0 +1,101 @@
+---
+title: "SVG in Absolute Units"
+---
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>SVG Absolute Units</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+    <script src="//code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/d3/3.4.6/d3.min.js"></script>
+</head>
+<body>
+
+<h2>SVG In Absolute units</h2>
+
+See <a href="{% post_url 2014-05-08-D3JS-Absolute-Units %}">D3/SVG with Absolute Units</a> article.
+
+<br/>
+<br/>
+
+<svg id="mysvg" viewBox="0 0 2 2" >
+  <rect x="0" y="0" width="1" height="1" style="fill:rgb(0,0,255);stroke-width:0;stroke:rgb(0,0,0)" />
+  <rect x="1" y="1" width="0.5" height="0.5" style="fill:rgb(255,0,0);stroke-width:0;stroke:rgb(0,0,0)" />
+  <circle cx="1.75" cy="1.5" r="0.25" style="fill:green"/>
+</svg>
+
+
+<br/>
+<br/>
+
+<br/>
+If the screen resolution is set correctly
+<b>The Width of the drawing above should be exactly 2 inches</b>.
+SVG Width/Height = <span id="dpi_label">XX</span> * 2 inches = <span id="pixel_label">XX</span> pixels.
+<br/>
+The <span style="color:blue;">BLUE</span> square should be 1 inch in size.
+<br/>
+The <span style="color:red;">RED</span> square should be 0.5 inch in size.
+<br/>
+The <span style="color:green;">GREEN</span> circle should be 0.5 inch in diameter.
+<br/>
+<br/>
+<br/>
+
+
+<b>Enter screeen resolution (or choose from the list)</b>:
+<br/>
+<select id="dpi_select" onblur="select_resolution();" onchange="select_resolution();">
+   <option value="96">96dpi - common desktop monitors</option>
+   <option value="132">132dpi - iPad 1/2</option>
+   <option value="163">163dpi - iPhone 4 - Reported DeviceWidth</option>
+   <option value="264">264dpi - iPad Retina/Air</option>
+   <option value="326">326dpi - iPhone 4S/5/5S</option>
+   <option value="135">135dpi - MacBook Air 11</option>
+   <option value="128">128dpi - MacBook Air 13</option>
+   <option value="113">113dpi - MacBook Pro 13</option>
+   <option value="227">227dpi - MacBook Pro Ratina 13</option>
+</select><br/>
+
+Screen Resolution: <input type="text" value="96" id="dpi_value">
+<br/>
+<input type="button" value="Update SVG" onclick="change_resolution();" />
+<br/>
+
+
+
+<script>
+
+function select_resolution()
+{
+   var new_resolution = $("#dpi_select").val() ;
+   $("#dpi_label").val(new_resolution);
+   $("#dpi_value").val(new_resolution);
+   change_resolution();
+}
+
+function change_resolution()
+{
+   var new_resolution = $("#dpi_value").val() ;
+
+   $("#dpi_label").text(new_resolution);
+
+   var desired_size_inches = 2 ;
+   var new_size_in_pixels = new_resolution * desired_size_inches ;
+
+   $("#pixel_label").text(new_size_in_pixels);
+
+   $("#mysvg").attr("width", new_size_in_pixels + "px");
+   $("#mysvg").attr("height",new_size_in_pixels + "px");
+}
+
+$(function() {
+	//When the page loads, set initial resolution
+	$("#dpi_select").change();
+ });
+
+</script>
+
+</body>
+</html>
