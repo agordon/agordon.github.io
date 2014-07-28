@@ -10,7 +10,7 @@ date:   2014-05-08
 
 To create [iPipet](http://ipipet.teamerlich.org/) we needed a simple method to draw
 shapes in absolute units - that is, have a known physical size in the real world -
-so that our red dots would align perfectly on the iPad screen with a
+so that our plate template would align perfectly on the iPad screen with a
 [96-Well Plate](http://en.wikipedia.org/wiki/Microtiter_plate).
 
 ![](./images/ipipet_top_350.jpg)  ![](./images/ipipet_side_350.jpg)
@@ -21,11 +21,11 @@ when displaying documents on screen (ie. computer monitors).
 Too many technical factors prevent accurate rendering of absolute units on common screens.
 
 However, when using well-characterized devices whose display resolution is
-known (e.g iPads), drawing with absolute units are relateively easy.
+known (e.g iPads), drawing with absolute units is relateively easy.
 
 ## Screen Resolution on Known Devices
 
-This green circle will be half-inch diameter *only* on specific computer monitors:
+The diameter of this green circle will be 1/2-inch *only* on specific computer monitors:
 
 <svg id="greencircle1" style="vertical-align:middle;" viewBox="0 0 0.5 0.5" width="48" height="48">
   <circle cx="0.25" cy="0.25" r="0.25" style="fill:green"/>
@@ -35,13 +35,13 @@ This green circle will be half-inch diameter *only* on specific computer monitor
 When designing a website for a specific device, the display resolution is usually known
 in advance.
 Wikipedia has a list of [display densities](http://en.wikipedia.org/wiki/List_of_displays_by_pixel_density).
-Ostensibly, If a display resolution for a device is 132ppi (pixels-per-inch,
+In theory, if a display resolution for a device is 132ppi (pixels-per-inch,
 also known as DPI, dots-per-inch) drawing 132 pixels-long line on the screen will
 measure exactly 1 inch.
 
 When using HTML/CSS/SVG, we must account for an additional factor: **CSS Pixel Ratio**.
 
-One of those will be exactly 1-inch wide, if your display's resolution
+One of these red bars will be exactly 1-inch wide, if your display's resolution
 matches <i>and</i> your device's CSS pixel ratio is 1:
 <div>
     <div style="background-color:red;text-align:right;width:96px;">96 pixels</div>
@@ -52,20 +52,20 @@ matches <i>and</i> your device's CSS pixel ratio is 1:
     <div style="background-color:red;text-align:right;width:200px;">200 pixels</div>
 </div>
 
-**CSS Pixel Ratio** enables devices to scale web-pages to a size easily readable
-by users. It must be taken into account when rendeting absolute units.
+*CSS Pixel Ratio** enables devices to scale web-pages to a size easily readable
+by users. It must be taken into account when rendering absolute units.
 CSS Media Queries trickery can sometimes be used to automatically detect the device's
-density and CSS-pixel ratio. Often it's easier to ask the user which device is being used
-(or detect it automatically) and consult's wikipedia's list of known device densities
-(See 'Further Information' section below for references).
+density and CSS-pixel ratio. Often, it's easier to ask the user which device is being used
+(or detect it automatically) and consult wikipedia's list of known device densities
+(See 'Further Information' below for references).
 
 ## Using absolute units with SVG
 
-Using SVG's [ViewBox](http://www.w3.org/TR/SVG11/coords.html#ViewBoxAttribute)
+SVG's [ViewBox](http://www.w3.org/TR/SVG11/coords.html#ViewBoxAttribute)
 attribute is used to specify to logical units inside of the SVG elements. The
 syntax is `viewBox = <min-x> <min-y> <width> <height>`. Here, `<width>` and
 `<height>` represent the logical left-most and bottom-most positions of the elements
-*inside* the SVG. For brevity of this tutorial, we'll treat the `viewBox` coordinates as logical,
+*inside* the SVG. For brevity, we'll treat the `viewBox` coordinates as logical,
 absolute units.
 
 Example: The following SVG will be a square measuring 1-by-1 logical units,
@@ -113,8 +113,8 @@ Click here for a [Demo of SVG absolute units for multiple devices](./examples/sv
 
 ## Absolute Units with D3
 
-[D3 (Data-Driven Documents])(http://d3js.org/) is a Javascript library for
-manipulating documents based on data. Internally, D3 uses SVG. Same principles
+[D3 (Data-Driven Documents)](http://d3js.org/) is a Javascript library for
+manipulating documents based on data. Internally, D3 uses SVG. The same principles
 apply to D3 when rendering absolute units, except with D3, the measurements
 are usually entered programatically:
 
