@@ -7,11 +7,17 @@ title: Crash Course
     <article class="post">
 
   <h1>Articles</h1>
-  <ul class="posts">
+
+  <table class="postlist">
     {% for post in site.posts %}
-      <li><span>{{ post.date | date_to_string }}</span> &raquo; <a href="{{ post.url }}">{{ post.title }}</a></li>
+      <tr>
+	<td>{{ post.date | date_to_string }}</td>
+	<td>&raquo;</td>
+	<td><a href="{{ post.url }}">{{ post.title }}</a></td>
+      </tr>
     {% endfor %}
-  </ul>
+  </table>
+
     </article>
 </main>
 

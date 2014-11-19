@@ -1,62 +1,90 @@
-/* Font size of 2.0 is too big, I'll reduce it */
-body {font-size: 1.5em;}
+body {
+  margin: 0;
+  padding: 0
+}
 
-h1 {font-size: 1.9em;}
-h2 {font-size: 1.7em;}
-h3 {font-size: 1.6em;}
+a {
+  text-decoration: none;
+}
 
 header.site-header {
   background-color: black;
-  text-align: center;
-  height: 229px;
+  height: 165px;
+  background-image: url("../images/johanan_small1.jpg");
+  background-repeat: no-repeat;
 }
 
 header.site-header a {
-  text-decoration: none;
   color: blue;
 }
 header.site-header a:hover {
   color: white;
 }
 
+footer.site-footer {
+ background-color: #D6EDFF;
+ color: #222;
+ position: relative;
+ margin: 8rem 0px 0px;
+ padding: 1rem 0px;
+}
+footer.site-footer a {
+  color: blue;
+}
+.inner {
+  position: relative;
+  width: 80%;
+  max-width: 700px;
+  margin: 0px auto;
+}
+
+
+main.content {
+  margin-left: 1em;
+  margin-right: 1em;
+}
+
+main.content a:hover {
+  text-decoration: underline;
+}
+
+code {
+  /* Round Corners */
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border-radius: 2px;
+  background-color: #f3f3f3;
+  padding-left: 0.5ex;
+  padding-right: 0.5ex;
+  color: red;
+}
+
+pre {
+  /* Round Corners */
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  padding: 1ex;
+  margin-left: 1em;
+  border: 1px solid #c0c0c0;
+  background-color: #f3f3f3;
+}
+
+pre code {
+  color: black;
+}
+
+
+
+
+div.post_bottom_spacer {
+  width: %100;
+  border: 1px solid black;
+  margin-top: 2em;
+}
+
 a.a_more_articles {
   color: blue;
   text-decoration: none;
-}
-
-div.site-subtitle {
-  position: relative;
-  top:-209px;
-  left:0px;
-}
-
-/* Adding some text shadow*/
-.site-head {text-shadow: 2px 2px #234;}
-.site-head a {color:#eee;}
-
-/* The font is too large in the post view. Revert to small size*/
-.post-header .blog-title {font-size:inherit;}
-
-/* Reduce font size and add line-height*/
-pre{
-	font-size: 0.9em;
-	line-height: 1.4em;
-}
-
-/* Author styling */
-.author {margin-bottom:1em;}
-.author header{
-	float:left;
-	width: 80px;
-}
-.author article{
-	margin-left:80px;
-	min-height: 80px;
-	padding-left:20px;
-}
-img.profile {
-	width:80px;
-	height:auto;
-	border-radius: 50px;
 }
 
