@@ -6,6 +6,14 @@ date:   2014-05-08
 
 # {{ page.title }}
 
+### Update, 2014-07-30:
+
+[iPipet](http://ipipet.teamerlich.org/) is published, see
+[Blog Post](http://erlichya.tumblr.com/post/93339535499/ipipet-a-creative-hack-born-out-of-necessity),
+[Press Release](http://wi.mit.edu/news/archive/2014/innovative-scientists-update-old-school-pipetting-new-age-technology),
+[Bio-IT world story](http://www.bio-itworld.com/2014/7/30/pad-pipetter-eases-tedious-lab-work.html),
+[Nature Methods Correspondence](http://www.nature.com/nmeth/journal/v11/n8/full/nmeth.3028.html).
+
 ## Background
 
 To create [iPipet](http://ipipet.teamerlich.org/) we needed a simple method to draw
