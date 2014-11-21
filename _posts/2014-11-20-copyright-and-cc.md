@@ -128,7 +128,7 @@ Or something similar.
 
 Not sure about this one.
 
-To the best of my understanding, if there is not explicit copyright because
+To the best of my understanding, if there is no explicit copyright because
 the author was lazy, but it is implicitly understandable who is the author
 - then if push comes to shove, the court would likely assert who is the author.
 
@@ -136,7 +136,7 @@ It is best to avoid questionable works which have no clear copyright holder.
 
 ### if there's no license
 
-To the best of my understanding, if there is not explicit license,
+To the best of my understanding, if there is no explicit license,
 courts would generally assume "All rights reserved" (if the matter
 becomes a law-suit).
 
