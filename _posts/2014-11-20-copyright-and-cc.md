@@ -151,6 +151,10 @@ You'll notice that the "Creative-Commons" licenses are already at version 4.
 The GNU GPL is at version 3, after years of deliberations and improvements.  
 Even the simple BSD license has gone through several iterations.
 
+More so, the "Human Readable" version of each CC license (e.g. [CC-BY](http://creativecommons.org/licenses/by/4.0/)) is short and sweet, but the legally binding version
+is full of legalese (<http://creativecommons.org/licenses/by/4.0/legalcode>).
+Read more about these issues here: <http://creativecommons.org/licenses/>.
+
 It is really best to choose an existing, valid, well-established license than
 to invent your own.
 
