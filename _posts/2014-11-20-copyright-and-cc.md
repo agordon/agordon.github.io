@@ -64,24 +64,25 @@ except view it when legally allowed (e.g. renting a movie or listening to the mu
 ### Art ("Creative") licenses
 
 For "art" (or more technically: created work which is not software code) there's
-"Creative Commons". And they have couple of licenses with varying degrees of
+"Creative Commons" (CC). The are several CC licenses with varying degrees of
 usage freedom:
 
 * CC0 (<http://creativecommons.org/about/cc0>) - also known as "No Rights
-  Reserved" -allows anything to be done with your creation, including modifying
+  Reserved" - allows anything to be done with your creation, including modifying
   it, incorporating it in commercial work, including not giving you credit.
 
 * CC-BY (<http://creativecommons.org/licenses/by/4.0/>) - ("Attribution") -
-  anything is allowed, as long as they give you credit.
+  anything is allowed, as long as proper credit is given to you.
 
 * CC-BY-SA (<http://creativecommons.org/licenses/by-sa/4.0/>) - ("Attribution +
-  Share Alike") - anything is allowed, as long as the give you credit AND
-  share their adaptation under the same license.
+  Share Alike") - anything is allowed, as long as proper credit is given AND
+  the shared/modified work is shared under the same license.
 
 * CC-BY-ND (<http://creativecommons.org/licenses/by-nd/4.0/>) - ("Attribution +
   No Derivative") - sharing is OK as long as proper credit is given.
-  Modifying or adapting the work is not allowed (i.e. they have to share it
-  exactly as you've published it).
+  Modifying or adapting the work is not allowed (i.e. it must be shared
+  exactly as you've published it). Such license is usuful when publishing an
+  opinion or a statement - you want it to be shared verbatim, never modified.
 
 * *XX*-NC - ("Non Commercial") - to the three licenses, above, you can add
   a "Non-Commercial" limitation, which prohibits commercial use of your work
