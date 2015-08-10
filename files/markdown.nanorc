@@ -1,0 +1,46 @@
+## GNU Nano Syntax Highlighting for MarkDown
+##
+## Based on 'Improved Nano Syntax Highlighting Files'
+## at https://github.com/scopatz/nanorc
+## by Anthony Scopatz (https://github.com/scopatz)
+#
+## See: http://crashcourse.housegordon.org/nano.html
+
+syntax "markdown" "\.(md|mkd|mkdn|markdown)$"
+
+# Emphasis
+color green "(^|[[:space:]])(_[^ ][^_]*_|\*[^ ][^*]*\*)"
+
+# Strong emphasis
+color brightgreen "(^|[[:space:]])(__[^ ][^_]*__|\*\*[^ ][^*]*\*\*)"
+
+# Highligh headers
+color brightmagenta  "^=====*$|^-----*$|^#{1,6}.*"
+
+# Lists
+color blue   "^[[:space:]]*[\*+-] |^[[:space:]]*[0-9]+\. "
+
+# Image links
+color brightred "\!?\[[^]]*\]([[:space:]]*\[[^]]*\]|\(.*\))?"
+
+# Links
+color brightred "^\[.*\]:[[:space:]]*[^"]*"
+
+## Linkified URLs (and inline html tags)
+color brightmagenta start="(^|[[:space:]])<" end=">([^[:alnum:]]|$)"
+
+# Inlined code
+color yellow   "(^|[[:space:]])`[^`]*`([^[:alnum:]]|$)"
+
+# Indented code
+# (not perfect:conflicts with indented lists)
+color brightyellow   "^ {4}[^-+*].*"
+
+# Code sections
+color brightyellow start="^```" end="^```"
+
+# Quotes
+color brightcyan "^>.*"
+
+# two spaces at EOL (forcing a line-break)
+color red,red "  $"
