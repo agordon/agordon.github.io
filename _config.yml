@@ -1,6 +1,6 @@
 name: Crash Course By Assaf Gordon
-markdown: redcarpet
+markdown: kramdown
 permalink: none
-highlighter: pygments
+highlighter: rouge
 
 public_url: http://crashcourse.housegordon.org

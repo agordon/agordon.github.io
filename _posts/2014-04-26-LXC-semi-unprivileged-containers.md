@@ -80,13 +80,12 @@ you'll need at least version 3.8. Version 3.12 is provided with [Debian Backport
 
 Once you booted and accessed the new Debian installation, run the following commands. These would add Debian Backports mirror as a source for packages, and install the new Kernel, including add the required setup (e.g. updating the Grub Menu):
 
-```sh
-echo "deb http://mirror.us.leaseweb.net/debian/ wheezy-backports main" | \
+
+    echo "deb http://mirror.us.leaseweb.net/debian/ wheezy-backports main" | \
     sudo tee /etc/apt/sources.list.d/backports.list
-sudo apt-get update
-sudo apt-get upgrade -y
-sudo apt-get -t wheezy-backports -y install linux-image-3.12-0.bpo.1-amd64
-```
+    sudo apt-get update
+    sudo apt-get upgrade -y
+    sudo apt-get -t wheezy-backports -y install linux-image-3.12-0.bpo.1-amd64
 
 This is a good place to remind you - **never** perform these experiments on production systems, or even on partially important machine. If something went wrong and the machine doesn't reboot, it's easier to just kill it and start fresh - only if it's a test machine.
 
@@ -96,18 +95,17 @@ Before rebooting, ensure the machine is properly configured to use the new kerne
 
 Once booted, verify the required support with the following commands. First, ensure the machine booted with the correct kernel version:
 
-```sh
-$ uname -r
-3.12-0.bpo.1-amd64
-```
+
+    $ uname -r
+    3.12-0.bpo.1-amd64
+
 
 Then, ensure the kernel supports user-namespace mapping. One indication is that each process will have two additional entries in its `/proc` directory:
 
-```sh
-$ cat /proc/1/{g,u}id_map
-         0          0 4294967295
-         0          0 4294967295
-```
+
+    $ cat /proc/1/{g,u}id_map
+        0          0 4294967295
+        0          0 4294967295
 
 If either of these commands failed, go back and trouble-shoot the kernel upgrade.
 
@@ -117,43 +115,39 @@ Few standard items must be configured on the host Debian machine.
 
 Mount [cgroups](http://www.linux.com/news/featured-blogs/200-libby-clark/733595-all-about-the-linux-kernel-cgroups-redesign), by running the following commands:
 
-```sh
-$ echo "cgroup  /sys/fs/cgroup  cgroup  defaults  0   0" | sudo tee -a /etc/fstab
-$ sudo mount /sys/fs/cgroup
-```
+
+    $ echo "cgroup  /sys/fs/cgroup  cgroup  defaults  0   0" | sudo tee -a /etc/fstab
+    $ sudo mount /sys/fs/cgroup
 
 Install few required programs:
 
-```sh
-$ sudo apt-get install -y libcap-dev build-essential wget
-```
+    $ sudo apt-get install -y libcap-dev build-essential wget
 
 Install the latest [Linux Containers](https://linuxcontainers.org/downloads/) (version 1.0.3 at the time of this writing):
 
-```sh
-wget https://linuxcontainers.org/downloads/lxc-1.0.3.tar.gz
-tar -xf lxc-1.0.3.tar.gz
-cd lxc-1.0.3
-./configure
-make -j
-sudo make install
-cd
-sudo ldconfig
-```
+
+    wget https://linuxcontainers.org/downloads/lxc-1.0.3.tar.gz
+    tar -xf lxc-1.0.3.tar.gz
+    cd lxc-1.0.3
+    ./configure
+    make -j
+    sudo make install
+    cd
+    sudo ldconfig
 
 Install a *static* version of busybox, which we'll use for the container's demonstration:
 
-```sh
-wget http://busybox.net/downloads/busybox-1.22.1.tar.bz2
-tar -xf busybox-1.22.1.tar.bz2
-cd busybox-1.22.1
-# Default Busybox configration is fine for this demo
-make defconfig
-# Except one item: make it a static executable
-sed -i '/CONFIG_STATIC/s/.*/CONFIG_STATIC=y/' .config
-make -j
-sudo cp busybox /usr/local/bin/busybox
-```
+
+    wget http://busybox.net/downloads/busybox-1.22.1.tar.bz2
+    tar -xf busybox-1.22.1.tar.bz2
+    cd busybox-1.22.1
+    # Default Busybox configration is fine for this demo
+    make defconfig
+    # Except one item: make it a static executable
+    sed -i '/CONFIG_STATIC/s/.*/CONFIG_STATIC=y/' .config
+    make -j
+    sudo cp busybox /usr/local/bin/busybox
+
 
 **Note:** The above steps are suitable for this experimental setup. On a production machine you want proper installation paths, etc.
 
@@ -163,55 +157,53 @@ Before trying unprivileged containers, verify the default containers work as exp
 
 Create a new minimal conainer, using BusyBox template:
 
-```sh
-$ sudo lxc-create --template busybox --name test1
-setting root password to "root"
-Password for 'root' changed
-```
+
+    $ sudo lxc-create --template busybox --name test1
+    setting root password to "root"
+    Password for 'root' changed
 
 Start the container, and run a simple command `sleep 60` (Ignore the `udhcpc` error - The BusyBox template starts dhcp by default, but does not have any network configured. To supress this warning, comment out the `/bin/udhcpc` line in the container's `./rootfs/etc/init.d/rcS` file):
 
-```sh
-$ sudo lxc-start --name test1
-udhcpc: SIOCGIFINDEX: No such device
 
-Please press Enter to activate this console.
-/ # sleep 60
-```
+    $ sudo lxc-start --name test1
+    udhcpc: SIOCGIFINDEX: No such device
+
+    Please press Enter to activate this console.
+    / # sleep 60
 
 Back on the host machine (open a new console), see that the 'sleep' command inside the container
 is run by the root user (which is the root on both the host and the container/guest):
 
-```sh
-# (Run On the host - numeric values will differ)
-$ ps -H axo user,pid,comm | grep -B 6 sleep
-root     20263   sudo lxc-start --name test1
-root     20264     lxc-start --name test1
-root     20266       init
-root     20270         /bin/syslogd
-root     20275         /bin/getty -L tty1 115200 vt100
-root     20276         /bin/sh
-root     20300           sleep 60
-```
+
+    # (Run On the host - numeric values will differ)
+    $ ps -H axo user,pid,comm | grep -B 6 sleep
+    root     20263   sudo lxc-start --name test1
+    root     20264     lxc-start --name test1
+    root     20266       init
+    root     20270         /bin/syslogd
+    root     20275         /bin/getty -L tty1 115200 vt100
+    root     20276         /bin/sh
+    root     20300           sleep 60
+
 
 Notice how all the processes (`lxc-start` on the host, and `syslogd`, `getty`, `sh`, and `sleep` on the guest) are all
 owned by user `root`.
 
 On the host, stop the container:
 
-```sh
-$ sudo lxc-stop --name test1
-```
+
+    $ sudo lxc-stop --name test1
+
 
 On the guest console, you will see:
 
-```
-The system is going down NOW!
-Sent SIGTERM to all processes
-Terminated
-Sent SIGKILL to all processes
-Requesting system halt
-```
+
+    The system is going down NOW!
+    Sent SIGTERM to all processes
+    Terminated
+    Sent SIGKILL to all processes
+    Requesting system halt
+
 
 Depending on your system's configuration, shutting down the container might take
 few seconds, due to Busybox's handling of the shutdown procedure.
@@ -223,104 +215,101 @@ If all the above steps worked as expected, Linux Containers (with the default pr
 
 On the host machine, create two non-root users. which will be mapped to the guest's root user and non-root users:
 
-```sh
-sudo adduser --quiet --uid 2001 --disabled-login --no-create-home lxc_root
-sudo adduser --quiet --uid 2002 --disabled-login --no-create-home lxc_user
-```
+
+    sudo adduser --quiet --uid 2001 --disabled-login --no-create-home lxc_root
+    sudo adduser --quiet --uid 2002 --disabled-login --no-create-home lxc_user
+
 
 2. On the host machine, change ownership of few critical files.
 For the purpose of this demonstation, the ownership modifications are sufficient.
 For a production machine, further consideration must be made.
 
-```sh
-# The exact PATH depents on the name of the LXC (test1 in this tutorial)
-$ cd /usr/local/var/lib/lxc/test1/
-# These preparations are required because the 'root' inside
-# the container isn't the host's root, and can't perform these
-$ sudo mkdir ./rootfs/lxc_putold
-$ sudo chown -R lxc_root:lxc_root ./rootfs/etc
-$ sudo mkdir ./rootfs/home/user
-$ sudo chown -R lxc_user:lxc_user ./rootfs/home/user
-```
+
+    # The exact PATH depents on the name of the LXC (test1 in this tutorial)
+    $ cd /usr/local/var/lib/lxc/test1/
+    # These preparations are required because the 'root' inside
+    # the container isn't the host's root, and can't perform these
+    $ sudo mkdir ./rootfs/lxc_putold
+    $ sudo chown -R lxc_root:lxc_root ./rootfs/etc
+    $ sudo mkdir ./rootfs/home/user
+    $ sudo chown -R lxc_user:lxc_user ./rootfs/home/user
 
 On the host machine, add the following configuration items to the `config` file.
 
-```
-# The file is /usr/local/var/lib/lxc/test1/config
+    # The file is /usr/local/var/lib/lxc/test1/config
 
-# In the BusyBox template, the following line is uncommented,
-# COMMENT it (to disable it).
-# lxc.pts = 1
+    # In the BusyBox template, the following line is uncommented,
+    # COMMENT it (to disable it).
+    # lxc.pts = 1
 
-lxc.kmsg = 0
+    lxc.kmsg = 0
 
-# map Guest user 0 (root) to Host user 2001 (lxc_root)
-lxc.id_map = u 0 2001 1
-lxc.id_map = g 0 2001 1
+    # map Guest user 0 (root) to Host user 2001 (lxc_root)
+    lxc.id_map = u 0 2001 1
+    lxc.id_map = g 0 2001 1
 
-# map guest user 1000 (see below) to host user 2002 (lxc_user)
-lxc.id_map = u 1000 2002 1
-lxc.id_map = g 1000 2002 1
-```
+    # map guest user 1000 (see below) to host user 2002 (lxc_user)
+    lxc.id_map = u 1000 2002 1
+    lxc.id_map = g 1000 2002 1
 
 Start the guest container, and run a test command (as the guest's root user):
 
-```sh
-$ sudo lxc-start --name test1
-udhcpc: SIOCGIFINDEX: No such device
 
-Please press Enter to activate this console.
-# id
-uid=0(root) gid=0(root)
-# sleep 88
-```
+    $ sudo lxc-start --name test1
+    udhcpc: SIOCGIFINDEX: No such device
+
+    Please press Enter to activate this console.
+    # id
+    uid=0(root) gid=0(root)
+    # sleep 88
+
 
 On the host, examine the user runnning the `sleep` command:
 
-```sh
-$ ps -H axo user,pid,comm | grep -B 7 sleep
-admin    20281  bash
-root     20374   sudo lxc-start --name test1
-root     20375     lxc-start --name test1
-lxc_root 20377       init
-lxc_root 20384         /bin/getty -L tty1 115200 vt100
-lxc_root 20385         /bin/sh
-lxc_root 20391           sleep 88
-```
+
+    $ ps -H axo user,pid,comm | grep -B 7 sleep
+    admin    20281  bash
+    root     20374   sudo lxc-start --name test1
+    root     20375     lxc-start --name test1
+    lxc_root 20377       init
+    lxc_root 20384         /bin/getty -L tty1 115200 vt100
+    lxc_root 20385         /bin/sh
+    lxc_root 20391           sleep 88
+
 
 The real user on the host is `lxc_root`, and it is a non-root user.
 
 Inside the guest container, create a non-root user:
 
-```sh
-# adduser -u 1000 user
-Changing password for user
-New password:
-Bad password: too short
-Retype password:
-Password for user changed by root
 
-# su -l user
-~ $ pwd
-/home/user
-~ $ id
-uid=1000(user) gid=1000(user) groups=1000(user)
-~ $ sleep 99
-```
+    # adduser -u 1000 user
+    Changing password for user
+    New password:
+    Bad password: too short
+    Retype password:
+    Password for user changed by root
+
+    # su -l user
+    ~ $ pwd
+    /home/user
+    ~ $ id
+    uid=1000(user) gid=1000(user) groups=1000(user)
+    ~ $ sleep 99
+
 
 Back on the host, examine the user running the `sleep` command:
 
-```sh
-$ ps -H axo user,pid,comm | grep -B 7 sleep
-admin    20281  bash
-root     20374   sudo lxc-start --name test1
-root     20375     lxc-start --name test1
-lxc_root 20377       init
-lxc_root 20384         /bin/getty -L tty1 115200 vt100
-lxc_root 20385         /bin/sh
-lxc_user 20422           -sh
-lxc_user 20424             sleep 99
-```
+
+    $ ps -H axo user,pid,comm | grep -B 7 sleep
+    admin    20281  bash
+    root     20374   sudo lxc-start --name test1
+    root     20375     lxc-start --name test1
+    lxc_root 20377       init
+    lxc_root 20384         /bin/getty -L tty1 115200 vt100
+    lxc_root 20385         /bin/sh
+    lxc_user 20422           -sh
+    lxc_user 20424             sleep 99
+
 
 ## Further Information
 

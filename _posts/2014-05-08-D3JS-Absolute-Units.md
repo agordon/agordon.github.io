@@ -81,12 +81,11 @@ and inside it, a 0.5-by-0.5 green square and 1-by-0.25 blue rectangle.
 **Note:** The size (in pixels) of the SVG element was not defined, so the logical
 unit size of 1 *does not* yet correspond to any known size on the device.
 
-```html
-<svg id="my_svg" viewBox="0 0 1 1">
-  <rect x="0" y=0"    width="0.5" height="0.5"  fill="green"></rect>
-  <rect x="0" y="0.5" width="1"   height="0.25" fill="blue"></rect>
-</svg>
-```
+
+    <svg id="my_svg" viewBox="0 0 1 1">
+      <rect x="0" y=0"    width="0.5" height="0.5"  fill="green"></rect>
+      <rect x="0" y="0.5" width="1"   height="0.25" fill="blue"></rect>
+    </svg>
 
 <svg id="my_svg" viewBox="0 0 1 1">
   <rect x="0" y=0"    width="0.5" height="0.5"  fill="green"></rect>
@@ -104,12 +103,10 @@ Example: on a 1st/2nd generation iPad with display resolution of 132ppi, the
 following SVG will measure exacly 1-inch (the green square will measure 0.5-by-0.5 inch,
 the blue rectangle will measure 1-by-0.25 inch):
 
-```html
-<svg id="my_svg" viewBox="0 0 1 1" width="132px" height="132px">
-  <rect x="0" y=0"    width="0.5" height="0.5"  fill="green"></rect>
-  <rect x="0" y="0.5" width="1"   height="0.25" fill="blue"></rect>
-</svg>
-```
+    <svg id="my_svg" viewBox="0 0 1 1" width="132px" height="132px">
+      <rect x="0" y=0"    width="0.5" height="0.5"  fill="green"></rect>
+      <rect x="0" y="0.5" width="1"   height="0.25" fill="blue"></rect>
+    </svg>
 
 <svg style="vertical-align:top;" id="my_svg1" viewBox="0 0 1 1" width="132px" height="132px">
   <rect x="0" y=0"    width="0.5" height="0.5"  fill="green"></rect>
@@ -126,43 +123,43 @@ manipulating documents based on data. Internally, D3 uses SVG. The same principl
 apply to D3 when rendering absolute units, except with D3, the measurements
 are usually entered programatically:
 
-```html
-<div id="drawing"></div>
 
-<script>
-/* Determine proper values at runtime, when the page loads on the device */
-var device_width_ppi  = 96 ;
-var device_height_ppi = 96 ;
+    <div id="drawing"></div>
 
-/* Desired size in absolute units */
-var desired_width_inches = 1 ;
-var desired_height_inches = 1 ;
-var viewBox = "0 0 " + desired_width_inches + " " + desired_height_inches ;
+    <script>
+    /* Determine proper values at runtime, when the page loads on the device */
+    var device_width_ppi  = 96 ;
+    var device_height_ppi = 96 ;
 
-/* Data/Elements to draw. Units are LOGICAL (inches) */
-var items = [
-  { "x": 0,  "y":0,   "w":0.5,   "h":0.5,  "fill":"green" },
-  { "x": 0,  "y":0.5, "w":1.0,   "h":0.25, "fill":"blue"  }
-  ];
+    /* Desired size in absolute units */
+    var desired_width_inches = 1 ;
+    var desired_height_inches = 1 ;
+    var viewBox = "0 0 " + desired_width_inches + " " + desired_height_inches ;
 
-var svg = d3.select("#drawing").append("svg")
-  .attr("id","my_svg")
-  .attr("viewBox", viewBox)
-  .attr("width",  device_width_ppi  * desired_width_inches)
-  .attr("height", device_height_ppi * desired_height_inches);
+    /* Data/Elements to draw. Units are LOGICAL (inches) */
+    var items = [
+      { "x": 0,  "y":0,   "w":0.5,   "h":0.5,  "fill":"green" },
+      { "x": 0,  "y":0.5, "w":1.0,   "h":0.25, "fill":"blue"  }
+      ];
 
-svg.selectAll(".item")
-   .data(items)
- .enter().append("rect")
-   .attr("class","item")
-   .attr("x",     function(d) { return d.x; } )
-   .attr("y",     function(d) { return d.y; } )
-   .attr("width", function(d) { return d.w; } )
-   .attr("height",function(d) { return d.h; } )
-   .attr("fill",  function(d) { return d.fill; } );
+    var svg = d3.select("#drawing").append("svg")
+      .attr("id","my_svg")
+      .attr("viewBox", viewBox)
+      .attr("width",  device_width_ppi  * desired_width_inches)
+      .attr("height", device_height_ppi * desired_height_inches);
 
-</script>
-```
+    svg.selectAll(".item")
+       .data(items)
+     .enter().append("rect")
+       .attr("class","item")
+       .attr("x",     function(d) { return d.x; } )
+       .attr("y",     function(d) { return d.y; } )
+       .attr("width", function(d) { return d.w; } )
+       .attr("height",function(d) { return d.h; } )
+       .attr("fill",  function(d) { return d.fill; } );
+
+    </script>
+
 
 Click here for a [Demo of D3 drawing with absolute units](./examples/d3_units.html).
 
@@ -171,20 +168,20 @@ Click here for a [Demo of D3 drawing with absolute units](./examples/d3_units.ht
 The following javascript/JQuery code can be used to change the size (in pixels) of an
 existing SVG object:
 
-```html
-function change_resolution(new_ppi)
-{
-    /* These must match the viewBox size of the SVG */
-    var desired_width_inches = 1 ;
-    var desired_height_inches = 1 ;
 
-    var new_width_pixels  = new_ppi * desired_width_inches ;
-    var new_height_pixels = new_ppi * desired_height_inches ;
+    function change_resolution(new_ppi)
+    {
+        /* These must match the viewBox size of the SVG */
+        var desired_width_inches = 1 ;
+        var desired_height_inches = 1 ;
 
-    $("#my_svg").attr("width", new_width_pixels + "px");
-    $("#my_svg").attr("height",new_height_pixels + "px");
-}
-```
+        var new_width_pixels  = new_ppi * desired_width_inches ;
+        var new_height_pixels = new_ppi * desired_height_inches ;
+
+        $("#my_svg").attr("width", new_width_pixels + "px");
+        $("#my_svg").attr("height",new_height_pixels + "px");
+    }
+
 
 ## Further Information
 

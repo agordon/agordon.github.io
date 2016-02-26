@@ -49,13 +49,9 @@ main.content a:hover {
 }
 
 code {
-  /* Round Corners */
-  -webkit-border-radius: 2px;
-  -moz-border-radius: 2px;
-  border-radius: 2px;
-  background-color: #f3f3f3;
-  padding-left: 0.5ex;
-  padding-right: 0.5ex;
+/*  padding-left: 0.5ex;
+  padding-right: 0.5ex;*/
+  background: #f0f0f0;
   color: red;
 }
 
@@ -67,15 +63,12 @@ pre {
   padding: 1ex;
   margin-left: 1em;
   border: 1px solid #c0c0c0;
-  background-color: #f3f3f3;
+  background: #f0f0f0;
 }
 
 pre code {
   color: black;
 }
-
-
-
 
 div.post_bottom_spacer {
   width: %100;
@@ -87,4 +80,3 @@ a.a_more_articles {
   color: blue;
   text-decoration: none;
 }
-

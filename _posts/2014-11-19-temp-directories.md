@@ -123,99 +123,96 @@ Create one temporary directory, then all file names can be fixed:
 there would no collisions if the same script is run multiple times in parallel
 as each temp directory is unique.
 
-```sh
-#!/bin/sh
+    #!/bin/sh
 
-DIR=$(mktemp -d -t myproject.XXXXXX) || exit 1
-echo "tmpdir = $DIR"
-echo "filename = $DIR/step1.txt"
+    DIR=$(mktemp -d -t myproject.XXXXXX) || exit 1
+    echo "tmpdir = $DIR"
+    echo "filename = $DIR/step1.txt"
 
-# Do one thing
-my-program > "$DIR/step1.txt" || exit 1
+    # Do one thing
+    my-program > "$DIR/step1.txt" || exit 1
 
-# Do another thing
-sort "$DIR/step1.txt" > "$DIR/step2.txt" || exit 1
+    # Do another thing
+    sort "$DIR/step1.txt" > "$DIR/step2.txt" || exit 1
 
-# When the script is completed, delete the temp directory
-# (or keep it for debugging/troubleshooting)
-rm -r "$DIR"
-```
+    # When the script is completed, delete the temp directory
+    # (or keep it for debugging/troubleshooting)
+    rm -r "$DIR"
+
 
 Using the script:
 
-   # default tmp directory
-   $ sh example.sh
-   tmpdir = /tmp/myproject.L3BxdI
-   filename = /tmp/myproject.L3BxdI/step1.txt
+    # default tmp directory
+    $ sh example.sh
+    tmpdir = /tmp/myproject.L3BxdI
+    filename = /tmp/myproject.L3BxdI/step1.txt
 
-   # Custom tmp directory
-   $ export TMPDIR=/data/gordon/tmp/
-   $ sh example.sh
-   tmpdir = /data/gordon/myproject.K4Pijh
-   filename = /data/gordon/myproject.K4Pijh/step1.txt
-
+    # Custom tmp directory
+    $ export TMPDIR=/data/gordon/tmp/
+    $ sh example.sh
+    tmpdir = /data/gordon/myproject.K4Pijh
+    filename = /data/gordon/myproject.K4Pijh/step1.txt
 
 # Python
 
 Use the `tempfile` module to create a temporary directory:
 
-```python
-import tempfile,os
 
-# Create a temporary directory
-tmpdir = tempfile.mkdtemp(prefix='lobstr.')
+    import tempfile,os
 
-# Write files in that directory
-filename = os.path.join(tmpdir,'step1.txt')
+    # Create a temporary directory
+    tmpdir = tempfile.mkdtemp(prefix='lobstr.')
 
-print "tmpdir = ", tmpdir
-print "filename = ", filename
-```
+    # Write files in that directory
+    filename = os.path.join(tmpdir,'step1.txt')
+
+    print "tmpdir = ", tmpdir
+    print "filename = ", filename
 
 Using the script:
 
-   ## default tmp directory
-   $ python example.py
-   tmpdir =  /tmp/lobstr.yuHqQV
-   filename =  /tmp/lobstr.yuHqQV/step1.txt
+    ## default tmp directory
+    $ python example.py
+    tmpdir =  /tmp/lobstr.yuHqQV
+    filename =  /tmp/lobstr.yuHqQV/step1.txt
 
-   ## Custom tmp directory
-   $ export TMPDIR=/data/gordon/tmp/
-   $ python example.py
-   tmpdir =  /data/gordon/tmp/lobstr.4MzWUG
-   filename =  /data/gordon/tmp/lobstr.4MzWUG/step1.txt
+    ## Custom tmp directory
+    $ export TMPDIR=/data/gordon/tmp/
+    $ python example.py
+    tmpdir =  /data/gordon/tmp/lobstr.4MzWUG
+    filename =  /data/gordon/tmp/lobstr.4MzWUG/step1.txt
 
 
 ## Perl
 
 Use `File::Temp` module to create temporary directories:
 
-```perl
-use File::Temp qw/tempdir/;
-use File::Spec::Functions;
 
-# Create a temporary directory
-$tmpdir = tempdir ( 'lobstr.XXXXXX', TMPDIR=> 1);
+    use File::Temp qw/tempdir/;
+    use File::Spec::Functions;
 
-# A file in the above temp directory
-$filename = catfile($tmpdir,'step1.txt');
+    # Create a temporary directory
+    $tmpdir = tempdir ( 'lobstr.XXXXXX', TMPDIR=> 1);
 
-print "tmpdir = $tmpdir\n";
-print "filename = $filename\n";
-```
+    # A file in the above temp directory
+    $filename = catfile($tmpdir,'step1.txt');
+
+    print "tmpdir = $tmpdir\n";
+    print "filename = $filename\n";
+
 
 Using the script:
 
-   ## default tmp directory
-   $ perl example.pl
-   tmpdir = /tmp/lobstr.Ziqv9r/
-   filename = /tmp/lobstr.Ziqv9r/step1.txt
+    ## default tmp directory
+    $ perl example.pl
+    tmpdir = /tmp/lobstr.Ziqv9r/
+    filename = /tmp/lobstr.Ziqv9r/step1.txt
 
-   ## custom tmp directory
-   $ export TMPDIR=/data/gordon/tmp/
-   $ perl example.pl
-   tmpdir =  /data/gordon/tmp/lobstr.teWY_P
-   filename =  /data/gordon/tmp/lobstr.teWY_P/step1.txt
+    ## custom tmp directory
+    $ export TMPDIR=/data/gordon/tmp/
+    $ perl example.pl
+    tmpdir =  /data/gordon/tmp/lobstr.teWY_P
+    filename =  /data/gordon/tmp/lobstr.teWY_P/step1.txt
 
 
 ## NOTE about Pytohn/Perl with invalid TMPDIR
@@ -250,50 +247,49 @@ So always ensure your temp-directory is accessible.
 To the best of my knowledge, there's no standard (POSIX) way to automatically
 use TMPDIR.  The following code should work on Unix systems:
 
-```C
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
-#include <err.h>
+    #include <stdio.h>
+    #include <stdlib.h>
+    #include <string.h>
+    #include <err.h>
 
-int main(void)
-{
-  const char *dirtemplate = "lobstr.XXXXXX";
-  const char *tmpdir = NULL;
-  /* Get TMPDIR env variable or fall back to /tmp/ */
-  tmpdir = getenv("TMPDIR");
-  if (tmpdir==NULL)
-    tmpdir = "/tmp" ;
+    int main(void)
+    {
+      const char *dirtemplate = "lobstr.XXXXXX";
+      const char *tmpdir = NULL;
+      /* Get TMPDIR env variable or fall back to /tmp/ */
+      tmpdir = getenv("TMPDIR");
+      if (tmpdir==NULL)
+        tmpdir = "/tmp" ;
 
-  /* Construct a template using 'tmpdir' */
-  size_t len = strlen(tmpdir) + 1
-               + strlen(dirtemplate) + 1;
-  char *template = calloc( len, 1 );
-  if (template == NULL)
-    err (1, "calloc(%zu,1) failed", len);
-  strcpy(template, tmpdir);
-  strcat(template, "/");
-  strcat(template, dirtemplate);
+      /* Construct a template using 'tmpdir' */
+      size_t len = strlen(tmpdir) + 1
+                   + strlen(dirtemplate) + 1;
+      char *template = calloc( len, 1 );
+      if (template == NULL)
+        err (1, "calloc(%zu,1) failed", len);
+      strcpy(template, tmpdir);
+      strcat(template, "/");
+      strcat(template, dirtemplate);
 
-  /* Create temporary directory */
-  if (mkdtemp(template)==NULL)
-    err (1, "mkdtemp(%s) failed",template);
-  printf("tmpdir = %s\n", template);
+      /* Create temporary directory */
+      if (mkdtemp(template)==NULL)
+        err (1, "mkdtemp(%s) failed",template);
+      printf("tmpdir = %s\n", template);
 
-  /* Construct a filename */
-  const char* filetemplate="step1.txt";
-  len = strlen(template)+1+strlen(filetemplate)+1;
-  char *filename = calloc(len,1);
-  if (filename==NULL)
-    err (1, "calloc(%zu,1) failed", len);
-  strcpy(filename,template);
-  strcat(filename,"/");
-  strcat(filename,filetemplate);
-  printf("filename = %s\n", filename);
+     /* Construct a filename */
+      const char* filetemplate="step1.txt";
+      len = strlen(template)+1+strlen(filetemplate)+1;
+      char *filename = calloc(len,1);
+      if (filename==NULL)
+        err (1, "calloc(%zu,1) failed", len);
+      strcpy(filename,template);
+      strcat(filename,"/");
+      strcat(filename,filetemplate);
+      printf("filename = %s\n", filename);
 
-  return 0;
-}
-```
+      return 0;
+    }
+
 
 Using the code:
 
@@ -320,22 +316,20 @@ Using the shell's `trap` command you can automatically delete the temporary
 directory, even in case the shell script terminated with an error, or by
 CTRL+C:
 
-```sh
-#!/bin/sh
+    #!/bin/sh
 
-# Create tepmorary directory
-DIR=$(mktemp -d -t test.XXXXXX) || exit 1
+    # Create tepmorary directory
+    DIR=$(mktemp -d -t test.XXXXXX) || exit 1
 
-# When the script terminates, run the 'rm' command
-trap "rm -rf '$DIR'" EXIT
+    # When the script terminates, run the 'rm' command
+    trap "rm -rf '$DIR'" EXIT
 
-# run your programs..
-my-program 1
-my-other-program --foo --bar
+    # run your programs..
+    my-program 1
+    my-other-program --foo --bar
 
-# When the script ends (even with CTRL+C or an error),
-# the 'trap' command will be executed.
-```
+    # When the script ends (even with CTRL+C or an error),
+    # the 'trap' command will be executed.
 
 **NOTE**: When debugging, you'd probably want to comment-out this command,
 to keep the temporary files available.
