@@ -19,7 +19,7 @@ them).
 
 The kind folks at [Webucator](https://www.webucator.com/) made a video
 based on this post. Check out the video at: <https://youtu.be/T94vZmOZodY>
-and other [Webucator Python courses](https://www.webucator.com/programming/python.cfm).
+and other [Webucator Online Python Classes](https://www.webucator.com/programming/python.cfm).
 
 
 <sub>
