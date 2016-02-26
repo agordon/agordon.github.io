@@ -15,6 +15,13 @@ them).
 1. DO NOT raise or catch the generic `Exception`.
 2. Use user-defined exceptions for application-level errors.
 
+**Update, 2016-02-26**
+
+The kind folks at [Webucator](https://www.webucator.com/) made a video
+based on this post. Check out the video at: <https://youtu.be/T94vZmOZodY>
+and other [Webucator Python courses](https://www.webucator.com/programming/python.cfm).
+
+
 <sub>
 Disclaimer: I'm not a python fan (and certainly not an expert).
 Comments, feedback, suggestions and improvements are welcomed.
