@@ -81,6 +81,14 @@ a.a_more_articles {
   text-decoration: none;
 }
 
+/* Add spacing above headers */
+h2 {
+    padding-top: 1em;
+}
+h3 {
+    padding-top: 1ex;
+}
+
 /* Table for Python-Subprocess */
 div#summary1 table {
     border-spacing: 0px;
