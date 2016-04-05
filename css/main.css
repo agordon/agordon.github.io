@@ -80,3 +80,27 @@ a.a_more_articles {
   color: blue;
   text-decoration: none;
 }
+
+/* Table for Python-Subprocess */
+div#summary1 table {
+    border-spacing: 0px;
+    border-collapse: collapse;
+}
+div#summary1 table thead tr {
+    border-bottom: 1px solid black;
+}
+div#summary1 table td {
+    padding: 6px;
+}
+div#summary1 table tr:nth-child(even) {
+    background: #EEE;
+}
+/* override the color of the 'shell parameter' header row  */
+div#summary1 table thead tr th code {
+    color: black;
+    background: transparent;
+}
+/* override the background color of the 'method' column */
+div#summary1 table tr td code {
+    background: transparent;
+}
