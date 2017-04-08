@@ -297,6 +297,14 @@ Useful websites
   and important. They provide a unicode tutorial at
   <http://unifoundry.com/unicode-tutorial.html>.
 
+* What Every Programmer Absolutely, Positively Needs To Know About
+  Encodings And Character Sets To Work With
+  Text <http://kunststube.net/encoding/> - basic but very good.
+
+* The Absolute Minimum Every Software Developer Absolutely, Positively
+  Must Know About Unicode and Character Sets (No
+  Excuses!)<https://www.joelonsoftware.com/2003/10/08/the-absolute-minimum-every-software-developer-absolutely-positively-must-know-about-unicode-and-character-sets-no-excuses/> -
+  Similar to the above, by Joel Spolsky.
 
 <a name="online_tools"></a>
 
@@ -360,6 +368,32 @@ code point:
 
     $ printf "Σημ" | iconv -t UTF-32LE | od -tx4 -An
      000003a3 000003b7 000003bc
+
+Checking for invalid multibyte-sequences with GNU sed:
+
+The following example works in UTF-8 locale, and relies on the fact
+the GNU sed's regular expression will *not* match invalid sequences
+(i.e.  anything that was *not* replaces by the regex is invalid
+octet).  If the output isn't empty, the input had invalid multibyte
+sequenes:
+
+    $ printf 'a\xCEc\n' | sed 's/.*//g' | od -tx1c -An
+      ce 0a
+      c  \n
+
+    # Same detection for an input file:
+    $ printf 'ab\nc\n\xCE\xCEde\n\xCE\xA3f\n' > invalid.txt
+
+    $ sed -n 's/.//g ; H ; $@{x;s/\n//g;l@}' invalid.txt
+    \316\316$
+
+    # With few more commands, the offending line can be printed as well:
+    $ sed -n 's/.//g;=;l' invalid.txt | paste - -  | awk '$2!="$"'
+    3       \316\316$
+
+    # GNU sed in C locale can edit octets directly:
+    $ LC_ALL=C sed '3s/\o316\o316//' invalid.txt > fixed.txt
+
 
 Converting UTF to \u sequences (using 'uconv' from [ICU package](http://site.icu-project.org)):
 
