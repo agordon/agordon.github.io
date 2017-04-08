@@ -577,8 +577,8 @@ This is EMOJI MODIFIER FITZPATRICK TYPE-1-2' ([U+1F3FB](https://codepoints.net/U
     # NOTE for readers: whether the above is rendered as a single
     # face depends on your web-browser or text editor.
 
-Using mbbuffer-debug (from [this patch](http://lists.gnu.org/archive/html/coreutils/2017-04/msg00009.html))
-can be used to examine multibyte input. The `W` column shows the result of
+The `mbbuffer-debug` (from [this patch](http://lists.gnu.org/archive/html/coreutils/2017-04/msg00009.html))
+is used below to examine multibyte input. The `W` column shows the result of
 wcwidth() of the character.
 
 When checking with `wcwidth`, it gives width of 1 on MAC OS X
