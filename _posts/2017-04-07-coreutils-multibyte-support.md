@@ -482,7 +482,15 @@ Show different unicode font implementation/support in terminals:
 Cygwin (and other systems with 16-bit wchar_t)
 ----------------------------------------------
 
-Cygwin UTF-16 problems: <https://cygwin.com/ml/cygwin/2011-02/msg00037.html>.
+Cygwin UTF-16 problems: <https://cygwin.com/ml/cygwin/2011-02/msg00037.html> - long and
+interesting discussion. First mention of possibility of `wwchar_t` and abstratction layer.
+
+Cygwin Internationalization: <https://cygwin.com/cygwin-ug-net/setup-locale.html> - 
+keeps recommending UTF8 everywhere.
+
+How cygwin deals internally with windows filenames (which are UTF16):
+<https://cygwin.com/cygwin-ug-net/using-specialnames.html#pathnames-unusual>
+
 
 But iswalpha takes `wint_t` which IS int32_t - perhaps do conversion manually?
 see <https://cygwin.com/ml/cygwin/2011-02/msg00039.html> and
@@ -701,6 +709,21 @@ expand/pr/fmt/fold):
     ofs  line colB colC V wc(dec) wc(hex) Ch  W n octets
     0    1    1    1    y   65314 0x0ff22 Ｂ  2 3 0xef 0xbc 0xa2
 
+
+From [Cygwin's internationalization page](https://cygwin.com/cygwin-ug-net/setup-locale.html):
+
+    There's a class of characters in the Unicode character set, called
+    the "CJK Ambiguous Width" characters. For these characters, the
+    width returned by the wcwidth/wcswidth functions is
+    usually 1. This can be a problem with East-Asian languages, which
+    historically use character sets where these characters have a
+    width of 2. Therefore, wcwidth/wcswidth return 2 as the width of
+    these characters when an East-Asian charset such as GBK or SJIS is
+    selected, or when UTF-8 is selected and the language is specified
+    as "zh" (Chinese), "ja" (Japanese), or "ko" (Korean). This is not
+    correct in all circumstances, hence the locale modifier
+    "@cjknarrow" can be used to force wcwidth/wcswidth to return 1 for
+    the ambiguous width characters.
 
 
 
