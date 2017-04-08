@@ -6,7 +6,7 @@ layout: post
 
 # {{ page.title }}
 
-Random notes and pointers regarding he on-going effort to add
+Random notes and pointers regarding the on-going effort to add
 multibyte and unicode support in [GNU Coreutils](https://gnu.org/s/coreutils).
 
 If you're considering working on multibyte/unicode/utf8 support in GNU coreutils
