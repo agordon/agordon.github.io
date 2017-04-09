@@ -861,7 +861,7 @@ Based on my understanding of the above, the following 'should work':
         > always refer to single byte binary values when used to
         > specify an endpoint of a range of collating elements.  "
 
-5. Equivalent classes: The following is supposed to work
+5. Equivalence classes: The following is supposed to work
    (i.e. replace also the umlaut-a into X), but does not work
    on FreeBSD-10.3/OpenBSD-6 which supposed to support it (TODO: check on musl-libc):
 
