@@ -207,6 +207,9 @@ Related Bug Reports
   locale/punctuation related confusion. This message from Jim Meyering contains
   simple example of the problem.
 
+* [bug#26422: historical feature or grand daddy bug?](https://lists.gnu.org/archive/html/bug-coreutils/2017-04/msg00031.html) -
+  Not a bug, but with explanation from Paul Eggert about historical
+  '\n' behaviour in sort.
 
 #### Other programs
 
