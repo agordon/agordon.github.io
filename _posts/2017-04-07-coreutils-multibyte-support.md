@@ -58,6 +58,10 @@ Relevant Discussions on Coreutils' mailing lists
   <https://github.com/pixelb/coreutils/tree/i18n>, with more details
   at <http://www.pixelbeat.org/docs/coreutils_i18n/>.
 
+* 2017-Jun-27:
+  [expr multibyte support](https://lists.gnu.org/archive/html/bug-coreutils/2017-05/msg00042.html)
+  Patch with `expr(1)` support for multibyte (also [bug#26779](https://bugs.gnu.org/26779)).
+
 * 2017-Apr-4:
   [multibyte support (round 3)](http://lists.gnu.org/archive/html/coreutils/2017-04/msg00009.html) -
   Patch with added `fold(1)` support.
