@@ -59,6 +59,8 @@ Relevant Discussions on Coreutils' mailing lists
   at <http://www.pixelbeat.org/docs/coreutils_i18n/>.
 
 * 2017-Jun-27:
+  **expr(1) multibyte support** - commited [here](https://git.savannah.gnu.org/cgit/coreutils.git/commit/?id=a9f2be5bfec2bfe86) and will be included in version 8.28.\
+  previous discussion:
   [expr multibyte support](https://lists.gnu.org/archive/html/bug-coreutils/2017-05/msg00042.html)
   Patch with `expr(1)` support for multibyte (also [bug#26779](https://bugs.gnu.org/26779)).
 
@@ -214,6 +216,13 @@ Related Bug Reports
 * [bug#26422: historical feature or grand daddy bug?](https://lists.gnu.org/archive/html/bug-coreutils/2017-04/msg00031.html) -
   Not a bug, but with explanation from Paul Eggert about historical
   '\n' behaviour in sort.
+
+#### expand/unexpand
+
+* [bug#28038](https://bugs.gnu.org/28038) (and [mailing list link](https://lists.gnu.org/archive/html/bug-coreutils/2017-08/msg00020.html)):
+  expand(1) lacks MBC support - the current i18n patch does work correctly,
+  no further development is needed.
+
 
 #### Other programs
 
