@@ -58,6 +58,9 @@ Relevant Discussions on Coreutils' mailing lists
   <https://github.com/pixelb/coreutils/tree/i18n>, with more details
   at <http://www.pixelbeat.org/docs/coreutils_i18n/>.
 
+* 2017-Aug-16: Discussion about adding ["cut -d" support](https://lists.gnu.org/archive/html/coreutils/2017-08/msg00029.html):
+  Which type of variable to use, and handling of invalid mb sequence for the delimiter.
+
 * 2017-Jun-27:
   **expr(1) multibyte support** - commited [here](https://git.savannah.gnu.org/cgit/coreutils.git/commit/?id=a9f2be5bfec2bfe86) and will be included in version 8.28.\
   previous discussion:
@@ -70,7 +73,7 @@ Relevant Discussions on Coreutils' mailing lists
 
 * 2016-Sep-19:
   [multibyte support (round 3)](http://lists.gnu.org/archive/html/coreutils/2016-09/msg00026.html) -
-  Patch with added `cut(1)` support.
+  Patch with added partial `cut(1)` support.
 
 * 2016-Sep-4:
   [Multibyte support (round 2)](http://lists.gnu.org/archive/html/coreutils/2016-09/msg00011.html) -
