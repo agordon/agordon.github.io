@@ -56,7 +56,7 @@ Relevant Discussions on Coreutils' mailing lists
 * [Pádraig Brady](https://www.pixelbeat.org) maintains a repository
   containing RedHat's incomplete implementation at
   <https://github.com/pixelb/coreutils/tree/i18n>, with more details
-  at <http://www.pixelbeat.org/docs/coreutils_i18n/>.
+  at <https://www.pixelbeat.org/docs/coreutils_i18n/>.
 
 * 2017-Sep-17: Discussion about [tr(1) multibyte supprt](https://lists.gnu.org/archive/html/coreutils/2017-09/msg00026.html): `-c` vs `-C`, handling invalid sequences and backward compatability.
 
@@ -70,25 +70,25 @@ Relevant Discussions on Coreutils' mailing lists
   Patch with `expr(1)` support for multibyte (also [bug#26779](https://bugs.gnu.org/26779)).
 
 * 2017-Apr-4:
-  [multibyte support (round 3)](http://lists.gnu.org/archive/html/coreutils/2017-04/msg00009.html) -
+  [multibyte support (round 3)](https://lists.gnu.org/archive/html/coreutils/2017-04/msg00009.html) -
   Patch with added `fold(1)` support.
 
 * 2016-Sep-19:
-  [multibyte support (round 3)](http://lists.gnu.org/archive/html/coreutils/2016-09/msg00026.html) -
+  [multibyte support (round 3)](https://lists.gnu.org/archive/html/coreutils/2016-09/msg00026.html) -
   Patch with added partial `cut(1)` support.
 
 * 2016-Sep-4:
-  [Multibyte support (round 2)](http://lists.gnu.org/archive/html/coreutils/2016-09/msg00011.html) -
+  [Multibyte support (round 2)](https://lists.gnu.org/archive/html/coreutils/2016-09/msg00011.html) -
   Patch with `unorm` and `expand` working with UTF-16.  Expanded
   description of `unorm`, and issues with `expand` and width of Emoji
   unicode characters
 
 * 2016-Jul-20:
-  [multibyte processing - handling invalid sequences (long)](http://lists.gnu.org/archive/html/coreutils/2016-07/msg00013.html) -
+  [multibyte processing - handling invalid sequences (long)](https://lists.gnu.org/archive/html/coreutils/2016-07/msg00013.html) -
   Thread about handling invalid sequences. Also contains a list
   of coreutils programs and their multibyte-related needs.
 
-  * [2016-Jul-21](http://lists.gnu.org/archive/html/coreutils/2016-07/msg00016.html) -
+  * [2016-Jul-21](https://lists.gnu.org/archive/html/coreutils/2016-07/msg00016.html) -
     discussion and introduction of `mbfix` (a precursor of `unorm`).
 
     Following messages in the thread discuss unicode normalization
@@ -123,9 +123,9 @@ Relevant Discussions on Coreutils' mailing lists
   lead to the creation of [GNU libunistring](https://lists.gnu.org/archive/html/bug-coreutils/2009-03/msg00156.html).
 
 * 2008-May-8:
-  [Re: horrible utf-8 performace in wc](http://lists.gnu.org/archive/html/bug-coreutils/2008-05/msg00063.html) -
+  [Re: horrible utf-8 performace in wc](https://lists.gnu.org/archive/html/bug-coreutils/2008-05/msg00063.html) -
   coreutils' `wc` supported multibyte characters for a long while. This discussion
-  resulted in [processing speed-ups](http://lists.gnu.org/archive/html/bug-coreutils/2008-05/msg00065.html).
+  resulted in [processing speed-ups](https://lists.gnu.org/archive/html/bug-coreutils/2008-05/msg00065.html).
 
 * 2006-Jul-31:
   [uniq i18n implementation](https://lists.gnu.org/archive/html/bug-coreutils/2006-07/msg00153.html)
@@ -174,7 +174,7 @@ Related Bug Reports
 
 * [WC counts UTF-16 codepoints](https://lists.gnu.org/archive/html/coreutils/2015-05/msg00017.html)
 
-* [WC does not count invalid multibyte sequences](https://lists.gnu.org/archive/html/coreutils/2015-11/msg00132.html) - this thread started the [Coreutils' Gotcha](http://www.pixelbeat.org/docs/coreutils-gotchas.html) page.
+* [WC does not count invalid multibyte sequences](https://lists.gnu.org/archive/html/coreutils/2015-11/msg00132.html) - this thread started the [Coreutils' Gotcha](https://www.pixelbeat.org/docs/coreutils-gotchas.html) page.
 
 * [bug#20751: wc -m doesn't count UTF-8 characters properly](https://debbugs.gnu.org/20751)
   (same on [mailing list](https://lists.gnu.org/archive/html/bug-coreutils/2015-06/msg00054.html))
@@ -303,7 +303,7 @@ Useful websites
   <https://www.cl.cam.ac.uk/~mgk25/ucs/examples/UTF-8-test.txt> -
   The gold standard in UTF-8 testing.
 
-  The unorm/mbbuffer tests in [this patch](http://lists.gnu.org/archive/html/coreutils/2017-04/msg00009.html)
+  The unorm/mbbuffer tests in [this patch](https://lists.gnu.org/archive/html/coreutils/2017-04/msg00009.html)
   are closely modelled after this stress tests
   (see [test-mbbuffer.c](/files/coreutils-unicode/test-mbbuffer.c) - comments
    such as `/* 4.1.2 */` refer to test 4.1.2 in the UTF-8 stress test).
@@ -606,7 +606,7 @@ This is EMOJI MODIFIER FITZPATRICK TYPE-1-2' ([U+1F3FB](https://codepoints.net/U
     # NOTE for readers: whether the above is rendered as a single
     # face depends on your web-browser or text editor.
 
-The `mbbuffer-debug` (from [this patch](http://lists.gnu.org/archive/html/coreutils/2017-04/msg00009.html))
+The `mbbuffer-debug` (from [this patch](https://lists.gnu.org/archive/html/coreutils/2017-04/msg00009.html))
 is used below to examine multibyte input. The `W` column shows the result of
 wcwidth() of the character.
 
@@ -634,13 +634,13 @@ and safari and chrome):
     aaaa    b
 
 Should we use 'wcswidth', or alternatively, process "EmojiModifiers"
-propery? (see <http://unicode.org/reports/tr51/#Data_Files> but then,
+propery? (see <https://unicode.org/reports/tr51/#Data_Files> but then,
 the list of possible specific properies is endless).
 
 Other "Modifier Symbols" (Category Sk): <https://codepoints.net/search?gc=Sk>
 
 See also: Multi-Person Grouping:
-<http://unicode.org/reports/tr51/#Multi_Person_Groupings>
+<https://unicode.org/reports/tr51/#Multi_Person_Groupings>
 Can be rendered as multiple icons or one combined icon (taking one or more characters).
 
 
@@ -660,7 +660,7 @@ Some characters are 'combining', and wcwidth *does* indicate
 they have zero width (which is good for expand/pr/fold/fmt),
 but when rendered they actually consume visual space
 on the screen, messing up alignment.
-This is [COMBINING ENCLOSING KEYCAP (U+20E3)](http://www.fileformat.info/info/unicode/char/20e3/index.htm):
+This is [COMBINING ENCLOSING KEYCAP (U+20E3)](https://www.fileformat.info/info/unicode/char/20e3/index.htm):
 
     $ printf 'a\u20E3aa\tb\naaaa\tb\n'
     a⃣aa     b
@@ -831,7 +831,7 @@ Deleting multibyte-sequences:
 
 
 
-[POSIX tr(1)](http://pubs.opengroup.org/onlinepubs/9699919799/utilities/tr.html)
+[POSIX tr(1)](https://pubs.opengroup.org/onlinepubs/9699919799/utilities/tr.html)
 says (in "Extended Description"):
 
 > "\octal - [...] Multi-byte characters require multiple, concatenated escape
@@ -995,7 +995,7 @@ a multibyte octet: <https://github.com/freebsd/freebsd/blob/master/usr.bin/hexdu
 On GNU coreutils' od, it seems (IIUC) that the implementation
 reads exactly the (known) amounts of octets needed to display
 each line, and adding 'peeking' feature will be tricky:
-<http://git.savannah.gnu.org/cgit/coreutils.git/tree/src/od.c#n1360>
+<https://git.savannah.gnu.org/cgit/coreutils.git/tree/src/od.c#n1360>
 
 
 
@@ -1252,7 +1252,7 @@ Unicode Book
 
 ---
 
-![unicode-explained-cover](http://akamaicovers.oreilly.com/images/9780596101213/cat.gif)
+![unicode-explained-cover](https://akamaicovers.oreilly.com/images/9780596101213/cat.gif)
 
 **Unicode Explained**
 
@@ -1260,7 +1260,7 @@ Internationalize Documents, Programs, and Web Sites
 
 By Jukka K. Korpela
 
-<http://shop.oreilly.com/product/9780596101213.do>
+<https://shop.oreilly.com/product/9780596101213.do>
 
 ---
 
