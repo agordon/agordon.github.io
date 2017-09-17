@@ -58,6 +58,8 @@ Relevant Discussions on Coreutils' mailing lists
   <https://github.com/pixelb/coreutils/tree/i18n>, with more details
   at <http://www.pixelbeat.org/docs/coreutils_i18n/>.
 
+* 2017-Sep-17: Discussion about [tr(1) multibyte supprt](https://lists.gnu.org/archive/html/coreutils/2017-09/msg00026.html): `-c` vs `-C`, handling invalid sequences and backward compatability.
+
 * 2017-Aug-16: Discussion about adding ["cut -d" support](https://lists.gnu.org/archive/html/coreutils/2017-08/msg00029.html):
   Which type of variable to use, and handling of invalid mb sequence for the delimiter.
 
